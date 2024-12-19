@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout :: layout}">
+<head>
+    <title>Liste des Évaluations de Performance</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <h2>Liste des Évaluations de Performance</h2>
+    <a th:href="@{/performance/add}" class="btn btn-primary mb-3">Ajouter une Évaluation</a>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>ID Employé</th>
+            <th>Date d'Évaluation</th>
+            <th>Feedback</th>
+            <th>Note</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="review : ${reviews}">
+            <td th:text="${review.id}">1</td>
+            <td th:text="${review.employeeId}">101</td>
+            <td th:text="${review.reviewDate}">2023-06-15</td>
+            <td th:text="${review.feedback}">Bon travail</td>
+            <td th:text="${review.rating}">5</td>
+            <td>
+                <a th:href="@{'/performance/edit/' + ${review.id}}" class="btn btn-sm btn-warning">Modifier</a>
+                <a th:href="@{'/performance/delete/' + ${review.id}}"
+                   class="btn btn-sm btn-danger"
+                   onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette évaluation ?');">Supprimer</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <a th:href="@{/}" class="btn btn-secondary">Retour au Dashboard</a>
+</div>
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout :: layout}">
+<head>
+    <title>Dashboard</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <h2>Bienvenue sur le Dashboard</h2>
+    <div class="row mt-4">
+        <!-- Carte 1 : Nombre d'Employés -->
+        <div class="col-md-4">
+            <div class="card text-white bg-primary mb-3">
+                <div class="card-header">Employés</div>
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${employeeCount}">0</h5>
+                    <p class="card-text">Nombre total d'employés.</p>
+                </div>
+            </div>
+        </div>
+        <!-- Carte 2 : Congés en Cours -->
+        <div class="col-md-4">
+            <div class="card text-white bg-success mb-3">
+                <div class="card-header">Congés</div>
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${leaveCount}">0</h5>
+                    <p class="card-text">Nombre de congés en cours.</p>
+                </div>
+            </div>
+        </div>
+        <!-- Carte 3 : Notifications Non Lues -->
+        <div class="col-md-4">
+            <div class="card text-white bg-warning mb-3">
+                <div class="card-header">Notifications</div>
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${unreadNotifications}">0</h5>
+                    <p class="card-text">Notifications non lues.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Autres Sections du Dashboard -->
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <h3>Derniers Employés</h3>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nom</th>
+                    <th>Poste</th>
+                    <th>Département</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="employee : ${latestEmployees}">
+                    <td th:text="${employee.id}">1</td>
+                    <td th:text="${employee.firstName} + ' ' + ${employee.lastName}">Nom Employé</td>
+                    <td th:text="${employee.position}">Poste</td>
+                    <td th:text="${employee.department}">Département</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-6">
+            <h3>Derniers Congés</h3>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>ID Employé</th>
+                    <th>Date de Début</th>
+                    <th>Date de Fin</th>
+                    <th>Statut</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="leave : ${latestLeaves}">
+                    <td th:text="${leave.id}">1</td>
+                    <td th:text="${leave.employeeId}">101</td>
+                    <td th:text="${leave.startDate}">2023-01-01</td>
+                    <td th:text="${leave.endDate}">2023-01-10</td>
+                    <td th:text="${leave.status}">Approuvé</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

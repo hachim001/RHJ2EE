@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout :: layout}">
+<head>
+    <title>Liste des Congés</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <h2>Liste des Congés</h2>
+    <a th:href="@{/leaves/add}" class="btn btn-primary mb-3">Ajouter un Congé</a>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>ID Employé</th>
+            <th>Date de Début</th>
+            <th>Date de Fin</th>
+            <th>Raison</th>
+            <th>Statut</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="leave : ${leaves}">
+            <td th:text="${leave.id}">1</td>
+            <td th:text="${leave.employeeId}">101</td>
+            <td th:text="${leave.startDate}">2023-01-01</td>
+            <td th:text="${leave.endDate}">2023-01-10</td>
+            <td th:text="${leave.reason}">Vacances</td>
+            <td th:text="${leave.status}">Approuvé</td>
+            <td>
+                <a th:href="@{'/leaves/edit/' + ${leave.id}}" class="btn btn-sm btn-warning">Modifier</a>
+                <a th:href="@{'/leaves/delete/' + ${leave.id}}"
+                   class="btn btn-sm btn-danger"
+                   onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce congé ?');">Supprimer</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <a th:href="@{/}" class="btn btn-secondary">Retour au Dashboard</a>
+</div>
+</body>
+</html>

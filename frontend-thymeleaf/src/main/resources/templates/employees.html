@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout :: layout}">
+<head>
+    <title>Liste des Employés</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <h2>Liste des Employés</h2>
+    <a th:href="@{/employees/add}" class="btn btn-primary mb-3">Ajouter un Employé</a>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Prénom</th>
+            <th>Nom</th>
+            <th>Email</th>
+            <th>Poste</th>
+            <th>Département</th>
+            <th>Salaire</th>
+            <th>Actif</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="employee : ${employees}">
+            <td th:text="${employee.id}">1</td>
+            <td th:text="${employee.firstName}">Prénom </td>
+            <td th:text="${employee.lastName}">Prénom</td>
+            <td th:text="${employee.email}">email@example.com</td>
+            <td th:text="${employee.position}">Poste</td>
+            <td th:text="${employee.department}">Département</td>
+            <td th:text="${employee.salary}">50000</td>
+            <td th:text="${employee.active} ? 'Oui' : 'Non'">Oui</td>
+            <td>
+                <a th:href="@{'/employees/edit/' + ${employee.id}}" class="btn btn-sm btn-warning">Modifier</a>
+                <a th:href="@{'/employees/delete/' + ${employee.id}}"
+                   class="btn btn-sm btn-danger"
+                   onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet employé ?');">Supprimer</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <a th:href="@{/}" class="btn btn-secondary">Retour au Dashboard</a>
+</div>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout :: layout}">
+<head>
+    <title>Liste des Candidats</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <h2>Liste des Candidats</h2>
+    <a th:href="@{/recruitments/add}" class="btn btn-primary mb-3">Ajouter un Candidat</a>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Prénom</th>
+            <th>Nom</th>
+            <th>Email</th>
+            <th>Poste Appliqué</th>
+            <th>Statut</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="candidate : ${candidates}">
+            <td th:text="${candidate.id}">1</td>
+            <td th:text="${candidate.firstName}">Prénom</td>
+            <td th:text="${candidate.lastName}">Nom</td>
+            <td th:text="${candidate.email}">email@example.com</td>
+            <td th:text="${candidate.positionApplied}">Poste</td>
+            <td th:text="${candidate.status}">Appliqué</td>
+            <td>
+                <a th:href="@{'/recruitments/edit/' + ${candidate.id}}" class="btn btn-sm btn-warning">Modifier</a>
+                <a th:href="@{'/recruitments/delete/' + ${candidate.id}}"
+                   class="btn btn-sm btn-danger"
+                   onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce candidat ?');">Supprimer</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <a th:href="@{/}" class="btn btn-secondary">Retour au Dashboard</a>
+</div>
+</body>
+</html>

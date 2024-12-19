@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout :: layout}">
+<head>
+    <title>Liste des Fiches de Paie</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <h2>Liste des Fiches de Paie</h2>
+    <a th:href="@{/payslips/add}" class="btn btn-primary mb-3">Ajouter une Fiche de Paie</a>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>ID Employé</th>
+            <th>Mois</th>
+            <th>Salaire Brut</th>
+            <th>Bonuses</th>
+            <th>Deductions</th>
+            <th>Salaire Net</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="payslip : ${payslips}">
+            <td th:text="${payslip.id}"></td>
+            <td th:text="${payslip.employeeId}"></td>
+            <td th:text="${payslip.dateIssued}"></td>
+            <td th:text="${payslip.grossSalary}"></td>
+            <td th:text="${payslip.bonuses}"></td>
+            <td th:text="${payslip.deductions}"></td>
+            <td th:text="${payslip.netPay}"></td>
+            <td>
+                <a th:href="@{'/payslips/edit/' + ${payslip.id}}" class="btn btn-sm btn-warning">Modifier</a>
+                <a th:href="@{'/payslips/delete/' + ${payslip.id}}"
+                   class="btn btn-sm btn-danger"
+                   onclick="return confirm('Êtes-vous sûr de vouloir supprimer ?');">
+                    Supprimer
+                </a>
+            </td>
+        </tr>
+
+        </tbody>
+    </table>
+    <a th:href="@{/}" class="btn btn-secondary">Retour au Dashboard</a>
+</div>
+</body>
+</html>
